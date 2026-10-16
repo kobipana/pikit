@@ -415,16 +415,25 @@ function countModels(homeDir: string, cwd: string): number {
   return seen.size;
 }
 
-function countMcpServers(homeDir: string): number {
-  const configPath = join(homeDir, ".pi", "agent", "configs", "mcp.json");
-  if (!existsSync(configPath)) return 0;
-  try {
-    const cfg = JSON.parse(readFileSync(configPath, "utf-8"));
-    if (cfg?.mcpServers && typeof cfg.mcpServers === "object") {
-      return Object.keys(cfg.mcpServers).length;
-    }
-  } catch {}
-  return 0;
+// Pi's built-in MCP reads ~/.pi/agent/mcp.json and the project's .pi/mcp.json; pikit's own mcp
+// extension reads configs/mcp.json. Count distinct server names across all of them.
+function countMcpServers(homeDir: string, cwd: string): number {
+  const configPaths = [
+    join(homeDir, ".pi", "agent", "mcp.json"),
+    join(homeDir, ".pi", "agent", "configs", "mcp.json"),
+    join(cwd, ".pi", "mcp.json"),
+  ];
+  const seen = new Set<string>();
+  for (const configPath of configPaths) {
+    if (!existsSync(configPath)) continue;
+    try {
+      const cfg = JSON.parse(readFileSync(configPath, "utf-8"));
+      if (cfg?.mcpServers && typeof cfg.mcpServers === "object") {
+        for (const name of Object.keys(cfg.mcpServers)) seen.add(name);
+      }
+    } catch {}
+  }
+  return seen.size;
 }
 
 export function discoverLoadedCounts(commands: CommandLike): LoadedCounts {
@@ -436,6 +445,6 @@ export function discoverLoadedCounts(commands: CommandLike): LoadedCounts {
     extensions: countExtensions(homeDir, cwd),
     skills: countSkills(commands),
     promptTemplates: countTemplates(commands),
-    mcpServers: countMcpServers(homeDir),
+    mcpServers: countMcpServers(homeDir, cwd),
   };
 }
