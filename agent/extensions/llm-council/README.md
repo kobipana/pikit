@@ -100,7 +100,7 @@ cp ~/.pi/agent/extensions/llm-council/llm-council.example.json \
 | `errorPrefix.prefix` | `string` | `"✗"` | Error indicator |
 | `errorPrefix.color` | `string` | `"error"` | Error indicator color |
 | `branch.prefix` | `string` | `"└─"` | Branch/indent line prefix |
-| `branch.color` | `string` | `"separator"` | Branch line color |
+| `branch.color` | `string` | `"borderMuted"` | Branch line color |
 | `status.doneLabel` | `string` | `"Done"` | Label for completed members |
 | `status.doneColor` | `string` | `"success"` | Color for done label |
 | `status.errorLabel` | `string` | `"Error"` | Label for failed members |
@@ -119,4 +119,4 @@ cp ~/.pi/agent/extensions/llm-council/llm-council.example.json \
 
 ### Color values
 
-Color fields accept **pi theme tokens** (`"text"`, `"accent"`, `"success"`, `"error"`, `"muted"`, `"dim"`, `"separator"`, `"toolTitle"`, etc.) and **hex values** (`"#ff6600"`).
+Color fields accept **pi theme tokens** (`"text"`, `"accent"`, `"success"`, `"error"`, `"muted"`, `"dim"`, `"borderMuted"`, `"toolTitle"`, etc.) and **hex values** (`"#ff6600"`).

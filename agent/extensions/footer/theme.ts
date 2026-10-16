@@ -5,24 +5,24 @@ import type { ColorScheme, ColorValue, SemanticColor } from "./types.js";
 // their absence signals "use rainbow" in thinking.ts.
 const DEFAULT_COLORS: ColorScheme = {
   pi: "accent",
-  model: "#c07898",
+  model: "customMessageLabel",
   path: "dim",
   git: "success",
   gitDirty: "warning",
   gitClean: "success",
   thinking: "muted",
-  thinkingOff: "dim",
-  thinkingMinimal: "muted",
-  thinkingLow: "warning",
-  thinkingMedium: "success",
-  thinkingHigh: "#afb9fe",
+  thinkingOff: "thinkingOff",
+  thinkingMinimal: "thinkingMinimal",
+  thinkingLow: "thinkingLow",
+  thinkingMedium: "thinkingMedium",
+  thinkingHigh: "thinkingHigh",
   context: "dim",
   contextWarn: "warning",
   contextError: "error",
   contextLabel: "muted",
   cost: "muted",
   tokens: "muted",
-  separator: "#4e4c49",
+  separator: "borderMuted",
   modeIndicator: "muted",
 };
 
@@ -47,7 +47,12 @@ export function applyColor(
   if (isHexColor(color)) {
     return `${hexToAnsi(color)}${text}\x1b[0m`;
   }
-  return theme.fg(color as ThemeColor, text);
+  try {
+    return theme.fg(color as ThemeColor, text);
+  } catch {
+    // Unknown token (e.g. a custom key the active theme lacks): render uncolored.
+    return text;
+  }
 }
 
 export function fg(

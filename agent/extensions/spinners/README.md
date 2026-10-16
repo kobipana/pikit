@@ -25,7 +25,7 @@ cp ~/.pi/agent/extensions/spinners/spinners.example.json \
 {
   "themeTokens": {
     "verb": "accent",
-    "separator": "separator",
+    "separator": "borderMuted",
     "status": "muted",
     "separatorIcon": "└─"
   }
@@ -36,9 +36,9 @@ cp ~/.pi/agent/extensions/spinners/spinners.example.json \
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| `themeTokens.verb` | `string` | `"accent"` | Theme token for the verb text (e.g., "Boondoggling...") |
-| `themeTokens.separator` | `string` | `"separator"` | Theme token for the separator icon |
-| `themeTokens.status` | `string` | `"muted"` | Theme token for the status line (elapsed time, token count) |
+| `themeTokens.verb` | `string` | `"accent"` | Theme token or hex color for the verb text (e.g., "Boondoggling...") |
+| `themeTokens.separator` | `string` | `"borderMuted"` | Theme token or hex color for the separator icon |
+| `themeTokens.status` | `string` | `"muted"` | Theme token or hex color for the status line (elapsed time, token count) |
 | `themeTokens.separatorIcon` | `string` | `"└─"` | The separator icon shown before the status |
 
 ### Available Theme Tokens
@@ -47,7 +47,7 @@ Use any valid pi.dev theme token. Common values:
 
 - `"accent"` — Primary accent color
 - `"muted"` — Dimmed/subtle text
-- `"separator"` — UI separators
+- `"borderMuted"` — UI separators
 - `"error"` — Error states
 - `"success"` — Success states
 - `"warning"` — Warning states

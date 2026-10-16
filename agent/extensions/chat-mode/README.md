@@ -58,7 +58,7 @@ Create `~/.pi/agent/configs/chat-mode.json` to customize behavior. An example fi
 ### Color values
 
 Color fields accept both **pi theme tokens** and **hex values**:
-- Theme tokens: `"text"`, `"accent"`, `"success"`, `"error"`, `"muted"`, `"dim"`, `"separator"`, `"toolTitle"`, etc.
+- Theme tokens: `"text"`, `"accent"`, `"success"`, `"error"`, `"muted"`, `"dim"`, `"borderMuted"`, `"toolTitle"`, etc.
 - Hex values: `"#ff6600"`, `"#00ff88"`, etc. — converted to ANSI truecolor at render time
 
 ### Notify types

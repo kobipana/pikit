@@ -23,11 +23,11 @@ const LEVEL_COLOR_KEY: Record<string, SemanticColor> = {
 };
 
 const LEVEL_COLOR_FALLBACK: Record<string, string> = {
-  off: "dim",
-  minimal: "muted",
-  low: "warning",
-  medium: "success",
-  high: "#afb9fe",
+  off: "thinkingOff",
+  minimal: "thinkingMinimal",
+  low: "thinkingLow",
+  medium: "thinkingMedium",
+  high: "thinkingHigh",
 };
 
 export const thinkingSegment = {

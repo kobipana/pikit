@@ -44,6 +44,11 @@ function isTextBlock(block: unknown): block is TextBlock {
  * Falls back to plain text if theming fails.
  */
 function colorize(theme: any, semantic: string, text: string): string {
+  const hex = /^#([0-9a-fA-F]{6})$/.exec(semantic)?.[1];
+  if (hex) {
+    const [r, g, b] = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16));
+    return `\x1b[38;2;${r};${g};${b}m${text}\x1b[39m`;
+  }
   try {
     return theme.fg(semantic, text);
   } catch {

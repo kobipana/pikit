@@ -114,17 +114,17 @@ const PADDING = " ".repeat(WIDTH);  // Auto-matched
 
 **4. User config** — When extension supports user configuration:
    - Config file: `~/.pi/agent/configs/<extension-name>.json`
-   - `config.ts` defines `DEFAULT_CONFIG` with all defaults (color fields use theme tokens like `"text"`, `"accent"`, `"success"`, `"muted"`, `"dim"`, `"separator"`)
+   - `config.ts` defines `DEFAULT_CONFIG` with all defaults (color fields use theme tokens like `"text"`, `"accent"`, `"success"`, `"muted"`, `"dim"`, `"borderMuted"`)
    - `loadUserConfig()` reads user config (`readFileSync` + `JSON.parse`, catch → `{}`)
    - Merge via `??`: `userConfig.field ?? DEFAULT_CONFIG.FIELD` — user overrides win, defaults fill gaps
    - See `styled-outputs/config.ts` for full pattern
 
 **5. Color support** — All color config fields must accept both theme tokens and hex:
-   - Theme tokens: `"text"`, `"accent"`, `"success"`, `"error"`, `"muted"`, `"dim"`, `"separator"`, `"toolTitle"`, etc.
+   - Theme tokens: `"text"`, `"accent"`, `"success"`, `"error"`, `"muted"`, `"dim"`, `"borderMuted"`, `"toolTitle"`, etc.
    - Hex values: `"#ff6600"`, `"#00ff88"`, etc.
    - Implementation in `utils.ts`:
      - `isHexColor(color)` — checks `color.startsWith("#")`
-     - `applyColor(theme, color, text)` — hex → ANSI truecolor (`\x1b[38;2;r;g;bm`), otherwise `theme.fg(color, text)`
+     - `applyColor(theme, color, text)` — hex → ANSI truecolor (`\x1b[38;2;r;g;bm`), otherwise try `theme.fg(color, text)` and fall back to plain text for unknown tokens
      - `applyBgColor(theme, color, text)` — hex → ANSI truecolor bg (`\x1b[48;2;r;g;bm`), otherwise converts theme fg ANSI to bg ANSI (swap `38` → `48`)
    - See `styled-outputs/utils.ts` for full implementation
 

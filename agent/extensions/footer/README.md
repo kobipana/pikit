@@ -90,7 +90,7 @@ The `context_pct` segment's bar is fully configurable via `segmentOptions.contex
 | `barWidth` | number | `18` | Number of characters wide |
 | `filledChar` | string | `"▋"` | Character used for the filled portion |
 | `unfilledChar` | string | `"▋"` | Character used for the unfilled portion |
-| `unfilledColor` | color | `"#4e4c49"` | Color of the unfilled portion — hex or pi theme token |
+| `unfilledColor` | color | `"borderMuted"` | Color of the unfilled portion — hex or pi theme token |
 | `gradientStart` | color | `"#f29373"` | Gradient color at the left/empty end — hex or pi theme token |
 | `gradientMid` | color | `"#d67858"` | Gradient midpoint color — hex or pi theme token |
 | `gradientEnd` | color | `"#ae4f2f"` | Gradient color at the right/full end — hex or pi theme token |

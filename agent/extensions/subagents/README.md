@@ -103,7 +103,7 @@ All fields optional — defaults match styled-outputs/LLM Council conventions.
 | `errorPrefix` | `prefix` | `"✗"` | Error icon |
 | | `color` | `"error"` | Icon color |
 | `branch` | `prefix` | `"└─"` | Branch prefix |
-| | `color` | `"separator"` | Branch color |
+| | `color` | `"borderMuted"` | Branch color |
 | `status` | `doneLabel` | `"Done"` | Done status text |
 | | `doneColor` | `"success"` | Done text color |
 | | `errorLabel` | `"Error"` | Error status text |
