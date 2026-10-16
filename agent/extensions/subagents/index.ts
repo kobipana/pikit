@@ -496,7 +496,8 @@ export default function (pi: ExtensionAPI) {
     async execute(_toolCallId, params, signal, onUpdate, ctx) {
       const { agents } = discoverAgents(ctx.cwd);
 
-      const parentModel = ctx.model?.id;
+      // Qualify with the provider: a bare id is ambiguous when several providers offer it.
+      const parentModel = ctx.model ? `${ctx.model.provider}/${ctx.model.id}` : undefined;
       const thinkingIdx = process.argv.indexOf("--thinking");
       const parentThinking = thinkingIdx !== -1 ? process.argv[thinkingIdx + 1] : undefined;
 
