@@ -6,7 +6,6 @@ import { extname } from "node:path";
 
 import { HOST } from "./config.js";
 import { listArtifacts, safeArtifactPath } from "./utils.js";
-import { renderIndexPage } from "./templates.js";
 
 interface ServerState {
   port: number;
@@ -102,9 +101,14 @@ function handle(req: IncomingMessage, res: ServerResponse, clients: Set<ServerRe
   // Index page
   if (url === "/") {
     const entries = listArtifacts();
-    const html = renderIndexPage(entries);
-    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
-    res.end(html);
+    // Loaded on first request: the template module pulls in slow-to-import renderers.
+    import("./templates.js").then(({ renderIndexPage }) => {
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      res.end(renderIndexPage(entries));
+    }, (err) => {
+      res.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
+      res.end(`500 — ${err instanceof Error ? err.message : String(err)}`);
+    });
     return;
   }
 

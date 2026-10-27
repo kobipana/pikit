@@ -2,6 +2,8 @@
 
 Personal fork of [adrianapan/pikit](https://github.com/adrianapan/pikit), used by the user's Sulaco
 NixOS flake (`~/sulaco`, see `.agents/skills/sulaco-pi-coding-agent/SKILL.md` there).
+The working copy is `~/Github/kobipana/pikit` on Nostromo and `~/Kit/github/kobipana/pikit` on
+the MacBook.
 
 ## How it is consumed
 
@@ -32,6 +34,10 @@ Keep these when touching the affected files:
 - `typebox` is a `peerDependencies` (`"*"`) entry (Pi provides it and warns about local copies).
 - The `startup` dashboard counts MCP servers from `~/.pi/agent/mcp.json`, `configs/mcp.json`
   and the project's `.pi/mcp.json`.
+- `artifacts` loads `templates.js` (marked, diff2html, highlight.js) and `web-access` loads
+  `extract.js` (linkedom, turndown, readability) with dynamic `import()` on first use, not at
+  startup; together this saves about 225 ms of pi startup. Keep these modules out of static
+  imports in `index.ts`/`server.ts`.
 
 ## Checks
 

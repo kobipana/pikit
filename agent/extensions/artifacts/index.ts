@@ -7,7 +7,6 @@ import { join } from "node:path";
 
 import { artifactUrl, isRunning, notifyReload, runningPort, stopServer } from "./server.js";
 import { slugify, isSafeSlug, writeArtifact, artifactExists, listArtifacts, openInBrowser, artifactPath } from "./utils.js";
-import { renderMarkdownDocument, renderHtmlDocument } from "./templates.js";
 
 interface ArtifactDetails {
   action: string;
@@ -134,6 +133,8 @@ export default function artifacts(pi: ExtensionAPI) {
       }
       const content = resolved.content;
 
+      // Loaded on first render: marked, diff2html and highlight.js are slow to import.
+      const { renderMarkdownDocument, renderHtmlDocument } = await import("./templates.js");
       const html = kind === "html"
         ? renderHtmlDocument(title, slug, content)
         : renderMarkdownDocument(title, slug, content);

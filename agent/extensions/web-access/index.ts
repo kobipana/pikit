@@ -1,7 +1,6 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { Type } from "typebox";
 import { searchWeb } from "./search.js";
-import { fetchAllContent } from "./extract.js";
 import {
   generateId,
   storeResult,
@@ -100,6 +99,8 @@ export default function (pi: ExtensionAPI) {
 
       let results;
       try {
+        // Loaded on first fetch: linkedom, turndown and readability are slow to import.
+        const { fetchAllContent } = await import("./extract.js");
         results = await fetchAllContent(urlList, signal);
       } catch (err) {
         return {
